@@ -14,7 +14,7 @@ let isClick = false;
 
 const UPDATE_LOAD_COEFF = 0.5;
 
-let targetInterval = 1000 / 144;
+let targetInterval = 1000 / 180;
 let prevTime = Date.now() - targetInterval;
 
 
