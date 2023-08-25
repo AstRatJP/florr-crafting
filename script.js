@@ -177,19 +177,14 @@ class PetalCrafted {
     }
 }
 
-cvs.addEventListener('click', e => {
-    // x = e.clientX*window.devicePixelRatio;
-    // y = e.clientY*window.devicePixelRatio;
-    canPetalSpin = 1;
-})
 
-this.canvas.addEventListener("click", (event) => {
+cvs.addEventListener("click", (event) => {
     mouseX = event.clientX * devicePixelRatio;
     mouseY = event.clientY * devicePixelRatio;
     isClick = true;
 });
 
-this.canvas.addEventListener('mousemove', (event) => {
+cvs.addEventListener('mousemove', (event) => {
     mouseX = event.clientX * devicePixelRatio;
     mouseY = event.clientY * devicePixelRatio;
 });
