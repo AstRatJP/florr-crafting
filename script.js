@@ -239,9 +239,12 @@ function drawbtn(x, y, w, h) {
     ) {
         ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
         ctx.fillRect(x - w / 2, y - h / 2, w, h);
+        cvs.style.cursor = "pointer";
         if (isClick) {
             canPetalSpin = 1;
         }
+    } else {
+        cvs.style.cursor = "default"
     }
 
     ctx.strokeStyle = 'rgba(25, 177, 180, 1)';
