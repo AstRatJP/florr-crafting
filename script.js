@@ -8,6 +8,9 @@ const numberOfParticles = 100;
 let petalsArray = [];
 let petalCrafted = 1;
 let canPetalSpin = 0;
+let mouseX = undefined;
+let mouseY = undefined;
+let isClick = false;
 
 class Particle {
     constructor(size, vx, vy, va) {
@@ -180,6 +183,17 @@ cvs.addEventListener('click', e => {
     canPetalSpin = 1;
 })
 
+this.canvas.addEventListener("click", (event) => {
+    mouseX = event.clientX * devicePixelRatio;
+    mouseY = event.clientY * devicePixelRatio;
+    isClick = true;
+});
+
+this.canvas.addEventListener('mousemove', (event) => {
+    mouseX = event.clientX * devicePixelRatio;
+    mouseY = event.clientY * devicePixelRatio;
+});
+
 function pop() {
     for (let i = 0; i < numberOfParticles; i++) {
         particlesArray.push(new Particle(
@@ -211,16 +225,50 @@ function resize() {
     canvas.style.height = window.innerHeight + "px";
 }
 
-function drawbg() {
-    ctx.fillStyle = "#DB9D5A";
-    ctx.fillRect(0, 0, cvs.width, cvs.height);
+function drawbtn(x, y, w, h) {
+    ctx.fillStyle = 'rgba(31, 219, 222, 1)';
+    ctx.fillRect(x-w/2, y-h/2, w, h);
+    if (
+        mouseX >= x-w/2 &&
+        mouseX <= x+w/2 &&
+        mouseY >= y-h/2 &&
+        mouseY <= y+h/2
+    ) {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+        ctx.fillRect(x-w/2, y-h/2, w, h);
+        if (isClick) {
+            canPetalSpin = 1;
+        }
+    }
+
+    ctx.strokeStyle = 'rgba(25, 177, 180, 1)';
+    ctx.lineWidth = 6;
+    ctx.beginPath();
+    ctx.roundRect(x-w/2, y-h/2, w, h, 8);
+    ctx.stroke();
+    
+    ctx.textAlign = "center";
+    ctx.textBaseline = 'middle';
+    ctx.strokeStyle = '#222222';
+    ctx.font = 'bold 20px Ubuntu, sans-serif';
+    ctx.lineWidth = 4;
+    ctx.lineJoin = 'round';
+    ctx.strokeText("Craft", x, y);
+    ctx.fillStyle = '#EEEEEE';
+    ctx.font = 'bold 20px Ubuntu, sans-serif';
+    ctx.fillText("Craft", x, y);
+
 }
 
 
 function mainloop() {
     ctx.clearRect(0, 0, cvs.width, cvs.height);
     resize();
-    drawbg();
+
+    ctx.fillStyle = "#DB9D5A";
+    ctx.fillRect(0, 0, cvs.width, cvs.height);
+
+    drawbtn(750, 500, 84, 42);
 
     // particle
     for (let i = 0; i < particlesArray.length; i++) {
@@ -241,6 +289,10 @@ function mainloop() {
         console.log(petalCrafted);
         petalCrafted.update();
         petalCrafted.draw();
+    }
+
+    if (isClick) {
+        isClick = false;
     }
 
     requestAnimationFrame(mainloop);
