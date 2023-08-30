@@ -72,7 +72,7 @@ class Petal {
             }
             this.phase += this.ease;
             this.radius = 100 + Math.cos(this.phase) * 42;
-            if (this.phase > 52) {
+            if (this.phase > 51.8) {
                 this.alpha -= 0.05;
                 this.size -= 0.05;
                 this.radius -= 0.2;
